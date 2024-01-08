@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>load메서드는 태그형태그대로 퍼옴 / ajax메서드는 서버의 DB형 , xml, json, txt</title>
+    <script
+    src="https://code.jquery.com/jquery-2.2.4.js"
+    integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="gnb">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div> 
+    <script>
+        $.ajax({
+            type : "GET", //전송방식 4개중의 하나선택
+            url : "/AJAX/data/navi.txt", //송신파일선택 경로
+            dataType:"text", //테이터타입
+            success:function(result){  //성공했을때 매개인자로 저장됨
+                console.log(result, result.data, typeof result.data);
+                //text로 와버려서... data타입이 정의되지않음
+            },
+            error : function(a,b){
+                //테이터 가져오지 못함 // 이유 2개 말해줘 
+                console.log(a, b);
+            }
+        }
+        )
+    </script>
+</body>
+</html>
+<!-- 
+parse() : 분쇄 <-> format() :조립
+ 도메인/경로/파일명.확장자?변수=값&변수=값 -->
