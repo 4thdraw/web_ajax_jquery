@@ -12,11 +12,7 @@
 <body>
     <div id="gnb">
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+          
         </ul>
     </div> 
     <script>
@@ -25,8 +21,16 @@
             url : "/AJAX/data/navi.txt", //송신파일선택 경로
             dataType:"text", //테이터타입
             success:function(result){  //성공했을때 매개인자로 저장됨
-                console.log(result, result.data, typeof result.data);
+                console.log(result, typeof result);
                 //text로 와버려서... data타입이 정의되지않음
+                const navidata = result.split("|");
+                console.log(navidata, typeof navidata, Array.isArray(navidata));
+               // 화면에 li태그에 감싸서 출력해주세요~
+                let htmltag = ``;
+                    for(x in navidata) {
+                        htmltag += `<li>${navidata[x]}</li>`;
+                    }
+                $('#gnb ul').html(htmltag);
             },
             error : function(a,b){
                 //테이터 가져오지 못함 // 이유 2개 말해줘 
