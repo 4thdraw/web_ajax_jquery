@@ -15,29 +15,45 @@
           
         </ul>
     </div> 
+    <div id="gnbxml">
+        <ul></ul>
+    </div>
     <script>
         $.ajax({
-            type : "GET", //전송방식 4개중의 하나선택
-            url : "/AJAX/data/navi.txt", //송신파일선택 경로
-            dataType:"text", //테이터타입
-            success:function(result){  //성공했을때 매개인자로 저장됨
-                console.log(result, typeof result);
-                //text로 와버려서... data타입이 정의되지않음
-                const navidata = result.split("|");
-                console.log(navidata, typeof navidata, Array.isArray(navidata));
-               // 화면에 li태그에 감싸서 출력해주세요~
+            type : "GET", 
+            url : "/AJAX/data/navi.txt", 
+            dataType:"text", 
+            success:function(result){                
+                const navidata = result.split("|");               
                 let htmltag = ``;
                     for(x in navidata) {
                         htmltag += `<li>${navidata[x]}</li>`;
                     }
                 $('#gnb ul').html(htmltag);
             },
-            error : function(a,b){
-                //테이터 가져오지 못함 // 이유 2개 말해줘 
+            error : function(a,b){               
                 console.log(a, b);
             }
         }
         )
+
+        // xml연동하기
+        $.ajax({
+            type: "GET",
+            url: "/AJAX/data/navi.xml",
+            dataType: "xml", // Specify dataType as "xml"
+            success: function (result) {
+                let htmltag = '';
+                $(result).find('fruits').children().each(function () {
+                    htmltag += `<li>${$(this).text()}</li>`;
+                });
+                $('#gnbxml ul').html(htmltag);
+            },
+            error: function (a, b) {
+                console.log(a, b);
+            }
+        });
+       
     </script>
 </body>
 </html>
